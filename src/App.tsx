@@ -1,11 +1,10 @@
-import { useState } from 'react'
+
 import { Routes, Route } from 'react-router-dom'
 import { Home } from './Pages/Home'
 import { Navbar } from './Components/Navbar'
 import { CreatePostPage } from './Pages/CreatePostPage'
 import { PostPage } from './Pages/PostPage'
 import { CreateCommunityPage } from './Pages/CreateCommunityPage'
-import { CommunityList } from './Components/CommunityList'
 import { CommunitiesPage } from './Pages/CommunitiesPage'
 
 

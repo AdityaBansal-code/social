@@ -3,7 +3,6 @@ import type { ChangeEvent } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import supabase from "../utils/supabase";
 import { useAuthStore } from "../Store/AuthStore";
-import { data } from "react-router";
 import { fetchCommunities
  } from "./CommunityList";
  import type  { Community } from "./CommunityList";

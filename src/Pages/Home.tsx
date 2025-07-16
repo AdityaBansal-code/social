@@ -1,4 +1,3 @@
-import React from "react";
 import { PostList } from "../Components/PostList";
 
 export const Home = () => {
