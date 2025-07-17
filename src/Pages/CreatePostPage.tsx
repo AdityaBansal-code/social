@@ -2,9 +2,9 @@ import { Create } from "../Components/Create";
 
 export const CreatePostPage = () => {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-black via-gray-900 to-gray-800 py-10 px-2 sm:py-16 md:py-20">
-      <section className="w-full max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto bg-gradient-to-tr from-white/5 via-gray-900/80 to-gray-800/90 border border-gray-700/60 rounded-3xl shadow-2xl p-6 sm:p-8 md:p-12 lg:p-14 mt-6 sm:mt-10 mb-6 sm:mb-10 backdrop-blur-md">
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-8 md:mb-12 text-center bg-gradient-to-r from-white via-gray-200 to-gray-500 bg-clip-text text-transparent drop-shadow-lg tracking-tight">
+    <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-black py-14 px-4 sm:py-20 md:py-24">
+      <section className="w-full max-w-3xl mx-auto bg-gradient-to-tr from-gray-900/90 via-gray-800/80 to-gray-700/70 border border-gray-600/50 rounded-3xl shadow-2xl p-8 sm:p-10 md:p-12 lg:p-14 mt-6 sm:mt-12 mb-6 sm:mb-12 backdrop-blur-md transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 md:mb-12 text-center bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent drop-shadow-xl tracking-tight">
           Create a New Post
         </h2>
         <Create />

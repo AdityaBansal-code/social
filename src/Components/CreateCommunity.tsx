@@ -8,6 +8,7 @@ interface CommunityInput {
   name: string;
   description: string;
 }
+
 const createCommunity = async (community: CommunityInput) => {
   const { error, data } = await supabase.from("communities").insert(community);
 
@@ -19,6 +20,7 @@ export const CreateCommunity = () => {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [authError, setAuthError] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // To hold error messages from mutation
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { user } = useAuthStore();
@@ -27,17 +29,32 @@ export const CreateCommunity = () => {
     mutationFn: createCommunity,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["communities"] });
+      setName(""); // Clear the name field on success
+      setDescription(""); // Clear the description field on success
       navigate("/communities");
+    },
+    onError: (error: any) => {
+      setErrorMessage(error.message || "Error creating community.");
     },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setAuthError(null);
+    setErrorMessage(null); // Reset any previous error
+
     if (!user) {
       setAuthError("Sign in before to create community");
       return;
     }
+
+    if (name.trim().length < 3 || description.trim().length < 5) {
+      setErrorMessage(
+        "Community name must be at least 3 characters and description at least 5 characters."
+      );
+      return;
+    }
+
     mutate({ name, description });
   };
 
@@ -46,9 +63,7 @@ export const CreateCommunity = () => {
       onSubmit={handleSubmit}
       className="max-w-2xl mx-auto space-y-6 px-6 py-10 rounded-3xl shadow-2xl border border-gray-700/60 bg-gradient-to-br from-black via-gray-900 to-gray-800"
     >
-      <h2 className="text-5xl font-extrabold mb-8 text-center bg-gradient-to-r from-white via-gray-200 to-gray-500 bg-clip-text text-transparent drop-shadow-lg tracking-tight">
-        Create a Community
-      </h2>
+   
       <div>
         <label
           htmlFor="name"
@@ -92,9 +107,14 @@ export const CreateCommunity = () => {
       {authError && (
         <p className="text-center text-red-400 font-medium mt-2">{authError}</p>
       )}
+      {errorMessage && (
+        <p className="text-center text-red-400 font-medium mt-2">
+          {errorMessage}
+        </p>
+      )}
       {isError && (
         <p className="text-center text-red-400 font-medium mt-2">
-          Error creating community.
+          Error creating community. Please try again later.
         </p>
       )}
     </form>

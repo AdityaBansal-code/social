@@ -40,6 +40,7 @@ export const Create = () => {
   const [content, setContent] = useState<string>("");
   const [communityId, setCommunityId] = useState<number | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [authError, setAuthError] = useState<string | null>(null);
 
   const { user } = useAuthStore();
@@ -76,7 +77,13 @@ export const Create = () => {
       },
       {
         onSuccess: () => {
-          window.location.href = "/";
+          // Reset form fields on success
+          setTitle("");
+          setContent("");
+          setCommunityId(null);
+          setSelectedFile(null);
+          setImagePreview(null);
+          window.location.href = "/"; // Redirect or show a success message
         },
       }
     );
@@ -89,17 +96,27 @@ export const Create = () => {
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setSelectedFile(e.target.files[0]);
+      const file = e.target.files[0];
+      setSelectedFile(file);
+
+      // Preview the selected image
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
   // Aesthetic, modern, black/white/grey theme with gradients and white as primary text
   const accentText = "text-white";
   const accentBorder = "border-gray-200";
-  const accentBgGradient = "bg-gradient-to-br from-black via-gray-900 to-gray-800";
+  const accentBgGradient =
+    "bg-gradient-to-br from-black via-gray-900 to-gray-800";
   const accentInputBorder = "border-gray-700";
   const accentInputFocus = "focus:ring-2 focus:ring-white";
-  const accentButtonGradient = "bg-gradient-to-r from-gray-900 via-gray-800 to-black";
+  const accentButtonGradient =
+    "bg-gradient-to-r from-gray-900 via-gray-800 to-black";
   const accentButtonHover = "hover:from-black hover:to-gray-900";
   const accentButtonText = "text-white";
   const accentFile =
@@ -131,11 +148,12 @@ export const Create = () => {
             }
           `}
         </style>
-        <h2 className="text-4xl font-extrabold mb-4 text-center bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent drop-shadow-lg tracking-tight">
-          Create a Post
-        </h2>
+        
         <div>
-          <label htmlFor="title" className={`block mb-2 font-semibold ${accentText}`}>
+          <label
+            htmlFor="title"
+            className={`block mb-2 font-semibold ${accentText}`}
+          >
             Title
           </label>
           <input
@@ -149,7 +167,10 @@ export const Create = () => {
           />
         </div>
         <div>
-          <label htmlFor="content" className={`block mb-2 font-semibold ${accentText}`}>
+          <label
+            htmlFor="content"
+            className={`block mb-2 font-semibold ${accentText}`}
+          >
             Content
           </label>
           <textarea
@@ -163,7 +184,10 @@ export const Create = () => {
           />
         </div>
         <div>
-          <label htmlFor="community" className={`block mb-2 font-semibold ${accentText}`}>
+          <label
+            htmlFor="community"
+            className={`block mb-2 font-semibold ${accentText}`}
+          >
             Select Community
           </label>
           <select
@@ -181,7 +205,10 @@ export const Create = () => {
           </select>
         </div>
         <div>
-          <label htmlFor="image" className={`block mb-2 font-semibold ${accentText}`}>
+          <label
+            htmlFor="image"
+            className={`block mb-2 font-semibold ${accentText}`}
+          >
             Upload Image
           </label>
           <input
@@ -197,6 +224,15 @@ export const Create = () => {
               <span className="text-sm text-white">{selectedFile.name}</span>
             </div>
           )}
+          {imagePreview && (
+            <div className="mt-4">
+              <img
+                src={imagePreview}
+                alt="Selected Preview"
+                className="w-full h-64 object-cover rounded-lg"
+              />
+            </div>
+          )}
         </div>
         <button
           type="submit"
@@ -205,7 +241,10 @@ export const Create = () => {
         >
           {isPending ? (
             <span className="flex items-center justify-center gap-2">
-              <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
+              <svg
+                className="animate-spin h-5 w-5 text-white"
+                viewBox="0 0 24 24"
+              >
                 <circle
                   className="opacity-25"
                   cx="12"

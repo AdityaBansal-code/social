@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import supabase from "../utils/supabase";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 
 export interface Community {
   id: number;
@@ -20,13 +20,12 @@ export const fetchCommunities = async (): Promise<Community[]> => {
 };
 
 export const CommunityList = () => {
-  const { data, error, isLoading } = useQuery<Community[], Error>({
+  const { data, error, isLoading, refetch } = useQuery<Community[], Error>({
     queryKey: ["communities"],
     queryFn: fetchCommunities,
   });
 
   // Accent and style variables for a modern, aesthetic, dark theme
-  
   const accentBgGradient =
     "bg-gradient-to-br from-black via-gray-900 to-gray-800";
   const accentCardGradient =
@@ -46,27 +45,43 @@ export const CommunityList = () => {
     "bg-gradient-to-r from-orange-400 via-yellow-300 to-white bg-clip-text text-transparent";
   const cardDesc = "text-gray-300 mt-2 text-lg";
   const cardMeta = "mt-4 flex items-center text-xs text-gray-400 gap-2";
-
   const container =
-    "min-h-[80vh] py-16 px-4 " + accentBgGradient + " flex flex-col items-center";
+    "min-h-[80vh] py-16 px-4 " +
+    accentBgGradient +
+    " flex flex-col items-center";
   const listWrapper = "max-w-4xl w-full mx-auto flex flex-col gap-8";
+
+  // Skeleton loader for when data is loading
+  const skeletonLoader = (
+    <div className="animate-pulse space-y-4">
+      <div className="bg-gray-700 h-16 w-3/4 rounded"></div>
+      <div className="bg-gray-700 h-8 w-5/6 rounded"></div>
+      <div className="bg-gray-700 h-8 w-3/4 rounded"></div>
+    </div>
+  );
 
   if (isLoading)
     return (
       <div className="text-center py-12 text-xl text-gray-200">
-        Loading communities...
+        {skeletonLoader}
       </div>
     );
+
   if (error)
     return (
-      <div className="text-center text-red-400 py-12 text-xl">
-        Error: {error.message}
+      <div className="text-center py-12 text-xl text-red-400">
+        <p>Error: {error.message}</p>
+        <button
+          onClick={() => refetch()}
+          className="mt-4 px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-all"
+        >
+          Retry
+        </button>
       </div>
     );
 
   return (
     <div className={container}>
-      
       <div className={listWrapper}>
         {data?.map((community) => (
           <div

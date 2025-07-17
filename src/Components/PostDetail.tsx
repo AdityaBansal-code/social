@@ -1,4 +1,3 @@
-
 import { useQuery } from "@tanstack/react-query";
 import type { Post } from "./PostList";
 import supabase from "../utils/supabase";
@@ -62,7 +61,7 @@ export const PostDetail = ({ postId }: Props) => {
   }
 
   return (
-    <div className="space-y-8 max-w-4xl mx-auto px-4 py-10 bg-gradient-to-br from-black via-gray-900 to-gray-800 rounded-3xl shadow-2xl border border-gray-700/60">
+    <div className="space-y-8 max-w-4xl mx-auto px-4 py-10 bg-gradient-to-br from-gray-800 via-gray-900 to-black rounded-3xl shadow-2xl border border-gray-700/60 shadow-lg backdrop-blur-md">
       <h2 className="text-5xl sm:text-6xl font-extrabold mb-6 text-center bg-gradient-to-r from-white via-gray-200 to-gray-500 bg-clip-text text-transparent drop-shadow-lg tracking-tight">
         {data.title}
       </h2>
@@ -90,7 +89,7 @@ export const PostDetail = ({ postId }: Props) => {
         </span>
       </div>
 
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 mt-6">
         <LikeButton postId={postId} />
         <CommentSection postId={postId} />
       </div>

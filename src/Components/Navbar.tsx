@@ -7,13 +7,15 @@ export const Navbar = () => {
   const { user, signInWithGitHub, signOut } = useAuthStore();
   const displayUser = user?.user_metadata.name || user?.email;
 
-  // Use a warm orange shade for accent text on black/gray backgrounds
+  // Accent text styles
   const accentText = "text-orange-400";
   const accentBorder = "border-orange-400";
   const accentBgGradient = "bg-gradient-to-r from-orange-500 to-yellow-400";
   const accentBgGradientHover = "hover:from-orange-600 hover:to-yellow-500";
-  const accentBgGradientReverse = "bg-gradient-to-tr from-orange-500 to-yellow-400";
-  const accentBgGradientReverseMobile = "bg-gradient-to-tr from-orange-500 to-yellow-400";
+  const accentBgGradientReverse =
+    "bg-gradient-to-tr from-orange-500 to-yellow-400";
+  const accentBgGradientReverseMobile =
+    "bg-gradient-to-tr from-orange-500 to-yellow-400";
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-black via-gray-900 to-gray-800 backdrop-blur-xl border-b border-orange-400/30 shadow-2xl">
@@ -31,30 +33,25 @@ export const Navbar = () => {
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-6">
-            <Link
-              to="/"
-              className={`px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:${accentText} hover:bg-orange-500/10 transition-all duration-200`}
-            >
-              Home
-            </Link>
-            <Link
-              to="/create"
-              className={`px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:${accentText} hover:bg-orange-500/10 transition-all duration-200`}
-            >
-              Create Post
-            </Link>
-            <Link
-              to="/communities"
-              className={`px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:${accentText} hover:bg-orange-500/10 transition-all duration-200`}
-            >
-              Communities
-            </Link>
-            <Link
-              to="/community/create"
-              className={`px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:${accentText} hover:bg-orange-500/10 transition-all duration-200`}
-            >
-              Create Community
-            </Link>
+            {["Home", "Create Post", "Communities", "Create Community"].map(
+              (text, idx) => (
+                <Link
+                  key={idx}
+                  to={  
+                    text === "Home"
+                      ? "/"
+                      : text === "Create Post"
+                      ? "/create" // Explicit path for Create Post
+                      : text === "Create Community"
+                      ? "/community/create" // Explicit path for Create Community
+                      : `/${text.toLowerCase().replace(/\s+/g, "")}`
+                  }
+                  className={`px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:${accentText} hover:bg-orange-500/10 transition-all duration-200`}
+                >
+                  {text}
+                </Link>
+              )
+            )}
           </div>
 
           {/* Desktop Auth */}
@@ -68,11 +65,17 @@ export const Navbar = () => {
                     className={`w-9 h-9 rounded-full object-cover border-2 ${accentBorder} shadow-md`}
                   />
                 ) : (
-                  <div className={`w-9 h-9 rounded-full ${accentBgGradientReverse} flex items-center justify-center text-white font-bold text-lg shadow-md`}>
+                  <div
+                    className={`w-9 h-9 rounded-full ${accentBgGradientReverse} flex items-center justify-center text-white font-bold text-lg shadow-md`}
+                  >
                     {displayUser?.[0]?.toUpperCase() || "U"}
                   </div>
                 )}
-                <span className={`font-semibold truncate max-w-[120px] ${accentText}`}>{displayUser}</span>
+                <span
+                  className={`font-semibold truncate max-w-[120px] ${accentText}`}
+                >
+                  {displayUser}
+                </span>
                 <button
                   onClick={signOut}
                   className={`${accentBgGradient} ${accentBgGradientHover} text-white px-4 py-1.5 rounded-lg font-semibold shadow transition-all duration-200`}
@@ -129,34 +132,22 @@ export const Navbar = () => {
       {menuOpen && (
         <div className="md:hidden bg-gradient-to-b from-black via-gray-900 to-gray-800 border-t border-orange-400/30 shadow-xl animate-fade-in-down">
           <div className="px-4 pt-4 pb-6 space-y-2">
-            <Link
-              to="/"
-              className={`block px-4 py-2 rounded-lg text-base font-medium text-gray-200 hover:${accentText} hover:bg-orange-500/10 transition-all duration-200`}
-              onClick={() => setMenuOpen(false)}
-            >
-              Home
-            </Link>
-            <Link
-              to="/create"
-              className={`block px-4 py-2 rounded-lg text-base font-medium text-gray-200 hover:${accentText} hover:bg-orange-500/10 transition-all duration-200`}
-              onClick={() => setMenuOpen(false)}
-            >
-              Create Post
-            </Link>
-            <Link
-              to="/communities"
-              className={`block px-4 py-2 rounded-lg text-base font-medium text-gray-200 hover:${accentText} hover:bg-orange-500/10 transition-all duration-200`}
-              onClick={() => setMenuOpen(false)}
-            >
-              Communities
-            </Link>
-            <Link
-              to="/community/create"
-              className={`block px-4 py-2 rounded-lg text-base font-medium text-gray-200 hover:${accentText} hover:bg-orange-500/10 transition-all duration-200`}
-              onClick={() => setMenuOpen(false)}
-            >
-              Create Community
-            </Link>
+            {["Home", "Create Post", "Communities", "Create Community"].map(
+              (text, idx) => (
+                <Link
+                  key={idx}
+                  to={
+                    text === "Home"
+                      ? "/"
+                      : `/${text.toLowerCase().replace(/\s+/g, "")}`
+                  }
+                  className={`block px-4 py-2 rounded-lg text-base font-medium text-gray-200 hover:${accentText} hover:bg-orange-500/10 transition-all duration-200`}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {text}
+                </Link>
+              )
+            )}
             <div className="pt-3 border-t border-orange-400/20">
               {user ? (
                 <div className="flex items-center gap-3 mt-2">
@@ -167,11 +158,17 @@ export const Navbar = () => {
                       className={`w-8 h-8 rounded-full object-cover border-2 ${accentBorder} shadow`}
                     />
                   ) : (
-                    <div className={`w-8 h-8 rounded-full ${accentBgGradientReverseMobile} flex items-center justify-center text-white font-bold text-lg shadow`}>
+                    <div
+                      className={`w-8 h-8 rounded-full ${accentBgGradientReverseMobile} flex items-center justify-center text-white font-bold text-lg shadow`}
+                    >
                       {displayUser?.[0]?.toUpperCase() || "U"}
                     </div>
                   )}
-                  <span className={`font-semibold truncate max-w-[100px] ${accentText}`}>{displayUser}</span>
+                  <span
+                    className={`font-semibold truncate max-w-[100px] ${accentText}`}
+                  >
+                    {displayUser}
+                  </span>
                   <button
                     onClick={() => {
                       setMenuOpen(false);

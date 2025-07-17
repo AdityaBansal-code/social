@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import supabase from "../utils/supabase"
+import supabase from "../utils/supabase";
 import { useAuthStore } from "../Store/AuthStore";
 
 interface Props {
@@ -22,7 +22,6 @@ const vote = async (voteValue: number, postId: number, userId: string) => {
     .maybeSingle();
 
   if (existingVote) {
-    // Liked -> 0, Like -> -1
     if (existingVote.vote === voteValue) {
       const { error } = await supabase
         .from("votes")
@@ -58,7 +57,6 @@ const fetchVotes = async (postId: number): Promise<Vote[]> => {
 
 export const LikeButton = ({ postId }: Props) => {
   const { user } = useAuthStore();
-  
   const queryClient = useQueryClient();
 
   const {
@@ -73,7 +71,7 @@ export const LikeButton = ({ postId }: Props) => {
 
   const { mutate } = useMutation({
     mutationFn: (voteValue: number) => {
-      if (!user) throw new Error("You must be logged in to Vote!");
+      if (!user) throw new Error("You must be logged in to vote!");
       return vote(voteValue, postId, user.id);
     },
 
@@ -83,11 +81,17 @@ export const LikeButton = ({ postId }: Props) => {
   });
 
   if (isLoading) {
-    return <div> Loading votes...</div>;
+    return (
+      <div className="text-center py-4 text-gray-500">Loading votes...</div>
+    );
   }
 
   if (error) {
-    return <div> Error: {error.message}</div>;
+    return (
+      <div className="text-center py-4 text-red-500">
+        Error: {error.message}
+      </div>
+    );
   }
 
   const likes = votes?.filter((v) => v.vote === 1).length || 0;
@@ -95,22 +99,39 @@ export const LikeButton = ({ postId }: Props) => {
   const userVote = votes?.find((v) => v.user_id === user?.id)?.vote;
 
   return (
-    <div className="flex items-center space-x-4 my-4">
+    <div className="flex items-center justify-center space-x-6 my-4">
+      {/* Like Button */}
       <button
         onClick={() => mutate(1)}
-        className={`px-3 py-1 cursor-pointer rounded transition-colors duration-150 ${
-          userVote === 1 ? "bg-green-500 text-white" : "bg-gray-200 text-black"
+        className={`px-6 py-2 text-lg font-semibold rounded-full transition-all duration-300 transform ${
+          userVote === 1
+            ? "bg-green-600 text-white scale-105 shadow-md"
+            : "bg-gray-200 text-black hover:bg-green-500 hover:text-white"
         }`}
       >
-        👍 {likes}
+        <span className="flex items-center space-x-1">
+          <span role="img" aria-label="like">
+            👍
+          </span>{" "}
+          {likes}
+        </span>
       </button>
+
+      {/* Dislike Button */}
       <button
         onClick={() => mutate(-1)}
-        className={`px-3 py-1 cursor-pointer rounded transition-colors duration-150 ${
-          userVote === -1 ? "bg-red-500 text-white" : "bg-gray-200 text-black"
+        className={`px-6 py-2 text-lg font-semibold rounded-full transition-all duration-300 transform ${
+          userVote === -1
+            ? "bg-red-600 text-white scale-105 shadow-md"
+            : "bg-gray-200 text-black hover:bg-red-500 hover:text-white"
         }`}
       >
-        👎 {dislikes}
+        <span className="flex items-center space-x-1">
+          <span role="img" aria-label="dislike">
+            👎
+          </span>{" "}
+          {dislikes}
+        </span>
       </button>
     </div>
   );

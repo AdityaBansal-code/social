@@ -27,13 +27,15 @@ export const fetchCommunityPost = async (
 };
 
 export const CommunityDisplay = ({ communityId }: Props) => {
-  const { data, error, isLoading } = useQuery<PostWithCommunity[], Error>({
+  const { data, error, isLoading, refetch } = useQuery<
+    PostWithCommunity[],
+    Error
+  >({
     queryKey: ["communityPost", communityId],
     queryFn: () => fetchCommunityPost(communityId),
   });
 
   // Accent color for text (primary shade for black bg)
- 
   const accentBgGradient =
     "bg-gradient-to-r from-black via-gray-900 to-gray-800";
   const accentCardGradient =
@@ -41,16 +43,32 @@ export const CommunityDisplay = ({ communityId }: Props) => {
   const accentCardHover =
     "hover:from-gray-900 hover:to-black hover:shadow-xl hover:border-orange-400/40";
 
+  // Skeleton loader for posts
+  const skeletonLoader = (
+    <div className="animate-pulse space-y-4">
+      <div className="bg-gray-700 h-16 w-full rounded"></div>
+      <div className="bg-gray-700 h-8 w-5/6 rounded"></div>
+      <div className="bg-gray-700 h-8 w-3/4 rounded"></div>
+    </div>
+  );
+
   if (isLoading)
     return (
       <div className="text-center py-8 text-lg text-gray-200">
-        Loading community posts...
+        {skeletonLoader}
       </div>
     );
+
   if (error)
     return (
       <div className="text-center text-red-400 py-8 text-lg">
-        Error: {error.message}
+        <p>Error: {error.message}</p>
+        <button
+          onClick={() => refetch()}
+          className="mt-4 px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-all"
+        >
+          Retry
+        </button>
       </div>
     );
 
@@ -74,16 +92,22 @@ export const CommunityDisplay = ({ communityId }: Props) => {
           {data.map((post) => (
             <div
               key={post.id}
-              className={`border border-white/10 ${accentCardGradient} p-6 rounded-2xl shadow-lg transition-all duration-200 transform hover:-translate-y-1 ${accentCardHover} w-full md:w-[45%]`}
+              className={`border border-white/10 ${accentCardGradient} p-6 rounded-2xl shadow-lg transition-all duration-200 transform hover:-translate-y-1 ${accentCardHover} w-full sm:w-full md:w-[45%]`}
             >
               <PostItem post={post} />
             </div>
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-400 text-lg mt-8">
-          No posts in this community yet.
-        </p>
+        <div className="text-center text-gray-400 text-lg mt-8">
+          No posts in this community yet. <br />
+          <button
+            onClick={() => (window.location.href = "/create-post")}
+            className="mt-4 px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-all"
+          >
+            Create a Post
+          </button>
+        </div>
       )}
     </div>
   );
