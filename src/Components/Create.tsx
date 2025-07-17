@@ -90,9 +90,28 @@ export const Create = () => {
     <div className="min-h-[80vh] flex items-center justify-center bg-gradient-to-br from-[#1a1333] via-[#221a3a] to-[#2d1e4d] py-12 px-2">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-2xl bg-[rgb(24,27,32)] border border-[rgb(84,90,106)] rounded-2xl shadow-2xl p-8 space-y-7"
+        className="w-full max-w-2xl bg-[rgb(24,27,32)] border border-[rgb(84,90,106)] rounded-2xl shadow-2xl p-8 space-y-7 overflow-y-auto max-h-[80vh] custom-scrollbar"
+        style={{
+          scrollbarWidth: "thin",
+          scrollbarColor: "#a78bfa #181b20",
+        }}
       >
-        
+        <style>
+          {`
+            .custom-scrollbar::-webkit-scrollbar {
+              width: 8px;
+              background: #181b20;
+              border-radius: 8px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb {
+              background: linear-gradient(180deg, #a78bfa 0%, #f472b6 100%);
+              border-radius: 8px;
+            }
+            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+              background: linear-gradient(180deg, #c084fc 0%, #f9a8d4 100%);
+            }
+          `}
+        </style>
         <div>
           <label htmlFor="title" className="block mb-2 font-semibold text-gray-200">
             Title
