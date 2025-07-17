@@ -8,15 +8,15 @@ interface Props {
 export const PostItem = ({ post }: Props) => {
   return (
     <div className="relative group transition-transform duration-200 hover:scale-[1.025]">
-      {/* Glowing border effect */}
-      <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-purple-500 via-pink-500 to-yellow-500 blur-lg opacity-0 group-hover:opacity-80 transition-opacity duration-300 pointer-events-none" />
+      {/* Glowing border effect - changed to grayscale gradient */}
+      <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-gray-200 via-gray-500 to-black blur-lg opacity-0 group-hover:opacity-80 transition-opacity duration-300 pointer-events-none" />
       <Link
         to={`/post/${post.id}`}
         className="block relative z-10"
         tabIndex={0}
         aria-label={`View post: ${post.title}`}
       >
-        <div className="w-80 h-76 bg-[rgb(24,27,32)] border border-[rgb(84,90,106)] rounded-[20px] text-white flex flex-col p-5 overflow-hidden transition-colors duration-300 group-hover:bg-gray-800">
+        <div className="w-80 h-76 bg-[rgb(24,27,32)] border border-[rgb(84,90,106)] rounded-[20px] text-white flex flex-col p-5 overflow-hidden transition-colors duration-300 group-hover:bg-black">
           {/* Header: Avatar and Title */}
           <div className="flex items-center space-x-2">
             {post.avatar_url ? (
@@ -26,7 +26,7 @@ export const PostItem = ({ post }: Props) => {
                 className="w-[35px] h-[35px] rounded-full object-cover"
               />
             ) : (
-              <div className="w-[35px] h-[35px] rounded-full bg-gradient-to-tl from-[#8A2BE2] to-[#491F70]" />
+              <div className="w-[35px] h-[35px] rounded-full bg-gradient-to-tl from-gray-700 to-gray-900" />
             )}
             <div className="flex flex-col flex-1">
               <div className="text-[20px] leading-[22px] font-semibold mt-2">

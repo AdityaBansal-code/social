@@ -93,14 +93,25 @@ export const Create = () => {
     }
   };
 
+  // Accent color for text (primary shade for black bg)
+  const accentText = "text-orange-400";
+  const accentBorder = "border-orange-400";
+  const accentBgGradient = "bg-gradient-to-r from-black via-gray-900 to-gray-800";
+  const accentInputBorder = "border-gray-700";
+  const accentInputFocus = "focus:ring-2 focus:ring-orange-400";
+  const accentButtonGradient = "bg-gradient-to-r from-black via-gray-800 to-gray-900";
+  const accentButtonHover = "hover:from-gray-900 hover:to-black";
+  const accentButtonText = "text-orange-300";
+  const accentFile = "file:bg-gradient-to-r file:from-gray-800 file:to-black file:text-orange-300 hover:file:from-black hover:file:to-gray-800";
+
   return (
-    <div className="min-h-[80vh] flex items-center justify-center bg-gradient-to-br from-[#1a1333] via-[#221a3a] to-[#2d1e4d] py-12 px-2">
+    <div className="min-h-[80vh] flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-gray-800 py-12 px-2">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-2xl bg-[rgb(24,27,32)] border border-[rgb(84,90,106)] rounded-2xl shadow-2xl p-8 space-y-7 overflow-y-auto max-h-[80vh] custom-scrollbar"
+        className={`w-full max-w-2xl ${accentBgGradient} border ${accentBorder}/30 rounded-2xl shadow-2xl p-8 space-y-7 overflow-y-auto max-h-[80vh] custom-scrollbar`}
         style={{
           scrollbarWidth: "thin",
-          scrollbarColor: "#a78bfa #181b20",
+          scrollbarColor: "#fbbf24 #181b20",
         }}
       >
         <style>
@@ -111,16 +122,19 @@ export const Create = () => {
               border-radius: 8px;
             }
             .custom-scrollbar::-webkit-scrollbar-thumb {
-              background: linear-gradient(180deg, #a78bfa 0%, #f472b6 100%);
+              background: linear-gradient(180deg, #fbbf24 0%, #f59e42 100%);
               border-radius: 8px;
             }
             .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-              background: linear-gradient(180deg, #c084fc 0%, #f9a8d4 100%);
+              background: linear-gradient(180deg, #f59e42 0%, #fbbf24 100%);
             }
           `}
         </style>
+        <h2 className="text-4xl font-extrabold mb-4 text-center bg-gradient-to-r from-orange-400 via-yellow-300 to-white bg-clip-text text-transparent drop-shadow-lg tracking-tight">
+          Create a Post
+        </h2>
         <div>
-          <label htmlFor="title" className="block mb-2 font-semibold text-gray-200">
+          <label htmlFor="title" className={`block mb-2 font-semibold ${accentText}`}>
             Title
           </label>
           <input
@@ -128,33 +142,33 @@ export const Create = () => {
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full border border-purple-700/30 bg-[#181b20] p-3 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+            className={`w-full border ${accentInputBorder} bg-black p-3 rounded-lg text-white focus:outline-none ${accentInputFocus} transition`}
             placeholder="Enter your post title"
             required
           />
         </div>
         <div>
-          <label htmlFor="content" className="block mb-2 font-semibold text-gray-200">
+          <label htmlFor="content" className={`block mb-2 font-semibold ${accentText}`}>
             Content
           </label>
           <textarea
             id="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="w-full border border-purple-700/30 bg-[#181b20] p-3 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+            className={`w-full border ${accentInputBorder} bg-black p-3 rounded-lg text-white focus:outline-none ${accentInputFocus} transition`}
             rows={6}
             placeholder="Write your post content here..."
             required
           />
         </div>
         <div>
-          <label htmlFor="community" className="block mb-2 font-semibold text-gray-200">
+          <label htmlFor="community" className={`block mb-2 font-semibold ${accentText}`}>
             Select Community
           </label>
           <select
             id="community"
             onChange={handleCommunityChange}
-            className="w-full border border-purple-700/30 bg-[#181b20] p-3 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+            className={`w-full border ${accentInputBorder} bg-black p-3 rounded-lg text-white focus:outline-none ${accentInputFocus} transition`}
             value={communityId ?? ""}
           >
             <option value={""}>-- Choose a Community --</option>
@@ -166,7 +180,7 @@ export const Create = () => {
           </select>
         </div>
         <div>
-          <label htmlFor="image" className="block mb-2 font-semibold text-gray-200">
+          <label htmlFor="image" className={`block mb-2 font-semibold ${accentText}`}>
             Upload Image
           </label>
           <input
@@ -174,23 +188,23 @@ export const Create = () => {
             id="image"
             accept="image/*"
             onChange={handleFileChange}
-            className="w-full text-gray-200 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-purple-500 file:to-pink-500 file:text-white hover:file:from-purple-600 hover:file:to-pink-600"
+            className={`w-full text-gray-200 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold ${accentFile}`}
           />
           {selectedFile && (
             <div className="mt-2 flex items-center gap-2">
               <span className="text-sm text-gray-400">Selected:</span>
-              <span className="text-sm text-purple-300">{selectedFile.name}</span>
+              <span className="text-sm text-orange-300">{selectedFile.name}</span>
             </div>
           )}
         </div>
         <button
           type="submit"
-          className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-600 hover:to-purple-600 text-white px-6 py-3 rounded-lg font-bold text-lg shadow-lg transition-all duration-200"
+          className={`w-full ${accentButtonGradient} ${accentButtonHover} ${accentButtonText} px-6 py-3 rounded-lg font-bold text-lg shadow-lg transition-all duration-200 border border-orange-400/40`}
           disabled={isPending}
         >
           {isPending ? (
             <span className="flex items-center justify-center gap-2">
-              <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
+              <svg className="animate-spin h-5 w-5 text-orange-300" viewBox="0 0 24 24">
                 <circle
                   className="opacity-25"
                   cx="12"
@@ -213,12 +227,12 @@ export const Create = () => {
           )}
         </button>
         {authError && (
-          <p className="text-red-500 text-center font-semibold mt-2">
+          <p className="text-red-400 text-center font-semibold mt-2">
             {authError}
           </p>
         )}
         {isError && (
-          <p className="text-red-500 text-center font-semibold mt-2">
+          <p className="text-red-400 text-center font-semibold mt-2">
             Error creating post.
           </p>
         )}

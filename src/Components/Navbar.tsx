@@ -7,43 +7,51 @@ export const Navbar = () => {
   const { user, signInWithGitHub, signOut } = useAuthStore();
   const displayUser = user?.user_metadata.name || user?.email;
 
+  // Use a warm orange shade for accent text on black/gray backgrounds
+  const accentText = "text-orange-400";
+  const accentBorder = "border-orange-400";
+  const accentBgGradient = "bg-gradient-to-r from-orange-500 to-yellow-400";
+  const accentBgGradientHover = "hover:from-orange-600 hover:to-yellow-500";
+  const accentBgGradientReverse = "bg-gradient-to-tr from-orange-500 to-yellow-400";
+  const accentBgGradientReverseMobile = "bg-gradient-to-tr from-orange-500 to-yellow-400";
+
   return (
-    <nav className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-[#1a1333] via-[#221a3a] to-[#2d1e4d] backdrop-blur-xl border-b border-purple-700/30 shadow-2xl">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-black via-gray-900 to-gray-800 backdrop-blur-xl border-b border-orange-400/30 shadow-2xl">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex justify-between items-center h-20">
           <Link
             to="/"
-            className="flex items-center gap-2 font-mono text-2xl font-extrabold text-white tracking-tight select-none"
+            className="flex items-center gap-2 font-mono text-2xl font-extrabold tracking-tight select-none"
           >
-            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent drop-shadow-lg">
+            <span className="bg-gradient-to-r from-orange-400 via-yellow-300 to-white bg-clip-text text-transparent drop-shadow-lg">
               Thread
             </span>
-            <span className="text-purple-400 drop-shadow-lg">ly</span>
+            <span className={`${accentText} drop-shadow-lg`}>ly</span>
           </Link>
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-6">
             <Link
               to="/"
-              className="px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:text-white hover:bg-purple-700/30 transition-all duration-200"
+              className={`px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:${accentText} hover:bg-orange-500/10 transition-all duration-200`}
             >
               Home
             </Link>
             <Link
               to="/create"
-              className="px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:text-white hover:bg-purple-700/30 transition-all duration-200"
+              className={`px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:${accentText} hover:bg-orange-500/10 transition-all duration-200`}
             >
               Create Post
             </Link>
             <Link
               to="/communities"
-              className="px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:text-white hover:bg-purple-700/30 transition-all duration-200"
+              className={`px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:${accentText} hover:bg-orange-500/10 transition-all duration-200`}
             >
               Communities
             </Link>
             <Link
               to="/community/create"
-              className="px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:text-white hover:bg-purple-700/30 transition-all duration-200"
+              className={`px-3 py-2 rounded-lg text-base font-medium text-gray-200 hover:${accentText} hover:bg-orange-500/10 transition-all duration-200`}
             >
               Create Community
             </Link>
@@ -57,17 +65,17 @@ export const Navbar = () => {
                   <img
                     src={user.user_metadata.avatar_url}
                     alt="User Avatar"
-                    className="w-9 h-9 rounded-full object-cover border-2 border-purple-400 shadow-md"
+                    className={`w-9 h-9 rounded-full object-cover border-2 ${accentBorder} shadow-md`}
                   />
                 ) : (
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-lg shadow-md">
+                  <div className={`w-9 h-9 rounded-full ${accentBgGradientReverse} flex items-center justify-center text-white font-bold text-lg shadow-md`}>
                     {displayUser?.[0]?.toUpperCase() || "U"}
                   </div>
                 )}
-                <span className="text-gray-200 font-semibold truncate max-w-[120px]">{displayUser}</span>
+                <span className={`font-semibold truncate max-w-[120px] ${accentText}`}>{displayUser}</span>
                 <button
                   onClick={signOut}
-                  className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-purple-600 hover:to-pink-600 text-white px-4 py-1.5 rounded-lg font-semibold shadow transition-all duration-200"
+                  className={`${accentBgGradient} ${accentBgGradientHover} text-white px-4 py-1.5 rounded-lg font-semibold shadow transition-all duration-200`}
                 >
                   Sign Out
                 </button>
@@ -75,7 +83,7 @@ export const Navbar = () => {
             ) : (
               <button
                 onClick={signInWithGitHub}
-                className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-purple-600 hover:to-blue-600 text-white px-4 py-1.5 rounded-lg font-semibold shadow transition-all duration-200"
+                className="bg-gradient-to-r from-gray-700 to-black hover:from-black hover:to-gray-800 text-orange-300 px-4 py-1.5 rounded-lg font-semibold shadow transition-all duration-200 border border-orange-400/40"
               >
                 Sign in with GitHub
               </button>
@@ -86,7 +94,7 @@ export const Navbar = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setMenuOpen((prev) => !prev)}
-              className="text-gray-200 hover:text-white focus:outline-none p-2 rounded transition"
+              className="text-gray-200 hover:text-orange-400 focus:outline-none p-2 rounded transition"
               aria-label="Toggle menu"
             >
               <svg
@@ -119,57 +127,57 @@ export const Navbar = () => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-gradient-to-b from-[#1a1333] via-[#221a3a] to-[#2d1e4d] border-t border-purple-700/30 shadow-xl animate-fade-in-down">
+        <div className="md:hidden bg-gradient-to-b from-black via-gray-900 to-gray-800 border-t border-orange-400/30 shadow-xl animate-fade-in-down">
           <div className="px-4 pt-4 pb-6 space-y-2">
             <Link
               to="/"
-              className="block px-4 py-2 rounded-lg text-base font-medium text-gray-200 hover:text-white hover:bg-purple-700/30 transition-all duration-200"
+              className={`block px-4 py-2 rounded-lg text-base font-medium text-gray-200 hover:${accentText} hover:bg-orange-500/10 transition-all duration-200`}
               onClick={() => setMenuOpen(false)}
             >
               Home
             </Link>
             <Link
               to="/create"
-              className="block px-4 py-2 rounded-lg text-base font-medium text-gray-200 hover:text-white hover:bg-purple-700/30 transition-all duration-200"
+              className={`block px-4 py-2 rounded-lg text-base font-medium text-gray-200 hover:${accentText} hover:bg-orange-500/10 transition-all duration-200`}
               onClick={() => setMenuOpen(false)}
             >
               Create Post
             </Link>
             <Link
               to="/communities"
-              className="block px-4 py-2 rounded-lg text-base font-medium text-gray-200 hover:text-white hover:bg-purple-700/30 transition-all duration-200"
+              className={`block px-4 py-2 rounded-lg text-base font-medium text-gray-200 hover:${accentText} hover:bg-orange-500/10 transition-all duration-200`}
               onClick={() => setMenuOpen(false)}
             >
               Communities
             </Link>
             <Link
               to="/community/create"
-              className="block px-4 py-2 rounded-lg text-base font-medium text-gray-200 hover:text-white hover:bg-purple-700/30 transition-all duration-200"
+              className={`block px-4 py-2 rounded-lg text-base font-medium text-gray-200 hover:${accentText} hover:bg-orange-500/10 transition-all duration-200`}
               onClick={() => setMenuOpen(false)}
             >
               Create Community
             </Link>
-            <div className="pt-3 border-t border-purple-700/20">
+            <div className="pt-3 border-t border-orange-400/20">
               {user ? (
                 <div className="flex items-center gap-3 mt-2">
                   {user.user_metadata?.avatar_url ? (
                     <img
                       src={user.user_metadata.avatar_url}
                       alt="User Avatar"
-                      className="w-8 h-8 rounded-full object-cover border-2 border-purple-400 shadow"
+                      className={`w-8 h-8 rounded-full object-cover border-2 ${accentBorder} shadow`}
                     />
                   ) : (
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-lg shadow">
+                    <div className={`w-8 h-8 rounded-full ${accentBgGradientReverseMobile} flex items-center justify-center text-white font-bold text-lg shadow`}>
                       {displayUser?.[0]?.toUpperCase() || "U"}
                     </div>
                   )}
-                  <span className="text-gray-200 font-semibold truncate max-w-[100px]">{displayUser}</span>
+                  <span className={`font-semibold truncate max-w-[100px] ${accentText}`}>{displayUser}</span>
                   <button
                     onClick={() => {
                       setMenuOpen(false);
                       signOut();
                     }}
-                    className="ml-auto bg-gradient-to-r from-pink-500 to-purple-500 hover:from-purple-600 hover:to-pink-600 text-white px-3 py-1 rounded-lg font-semibold shadow transition-all duration-200"
+                    className={`ml-auto ${accentBgGradient} ${accentBgGradientHover} text-white px-3 py-1 rounded-lg font-semibold shadow transition-all duration-200`}
                   >
                     Sign Out
                   </button>
@@ -180,7 +188,7 @@ export const Navbar = () => {
                     setMenuOpen(false);
                     signInWithGitHub();
                   }}
-                  className="w-full mt-2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-purple-600 hover:to-blue-600 text-white px-3 py-2 rounded-lg font-semibold shadow transition-all duration-200"
+                  className="w-full mt-2 bg-gradient-to-r from-gray-700 to-black hover:from-black hover:to-gray-800 text-orange-300 px-3 py-2 rounded-lg font-semibold shadow transition-all duration-200 border border-orange-400/40"
                 >
                   Sign in with GitHub
                 </button>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuthStore } from "../Store/AuthStore";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import supabase from "../utils/supabase"
+import supabase from "../utils/supabase";
 import { CommentItem } from "./CommentItem";
 
 interface Props {
@@ -115,41 +115,71 @@ export const CommentSection = ({ postId }: Props) => {
     return roots;
   };
 
+  // Accent color and gradients for black background
+  const accentText = "text-orange-400";
+  const accentBorder = "border-orange-400";
+  const accentBgGradient =
+    "bg-gradient-to-br from-black via-gray-900 to-gray-800";
+  const accentButtonGradient =
+    "bg-gradient-to-r from-black via-gray-800 to-gray-900";
+  const accentButtonHover =
+    "hover:from-gray-900 hover:to-black";
+  const accentButtonText = "text-orange-300";
+  const accentInputBorder = "border-gray-700";
+  const accentInputFocus = "focus:ring-2 focus:ring-orange-400";
+
   if (isLoading) {
-    return <div> Loading comments...</div>;
+    return (
+      <div className="text-center py-4 text-lg text-gray-200">
+        Loading comments...
+      </div>
+    );
   }
 
   if (error) {
-    return <div> Error: {error.message}</div>;
+    return (
+      <div className="text-center text-red-400 py-4 text-lg">
+        Error: {error.message}
+      </div>
+    );
   }
 
   const commentTree = comments ? buildCommentTree(comments) : [];
 
   return (
-    <div className="mt-6">
-      <h3 className="text-2xl font-semibold mb-4">Comments</h3>
+    <div
+      className={`mt-6 rounded-2xl shadow-lg border border-gray-700/60 ${accentBgGradient} p-6`}
+    >
+      <h3
+        className={`text-2xl font-extrabold mb-6 bg-gradient-to-r from-white via-gray-200 to-orange-400 bg-clip-text text-transparent drop-shadow tracking-tight`}
+      >
+        Comments
+      </h3>
       {/* Create Comment Section */}
       {user ? (
-        <form onSubmit={handleSubmit} className="mb-4">
+        <form onSubmit={handleSubmit} className="mb-6">
           <textarea
             value={newCommentText}
             onChange={(e) => setNewCommentText(e.target.value)}
-            className="w-full border border-white/10 bg-transparent p-2 rounded"
+            className={`w-full border ${accentInputBorder} bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 text-white p-3 rounded-lg focus:outline-none ${accentInputFocus} transition`}
             placeholder="Write a comment..."
             rows={3}
           />
           <button
             type="submit"
-            className="mt-2 bg-purple-500 text-white px-4 py-2 rounded cursor-pointer"
+            className={`mt-3 ${accentButtonGradient} ${accentButtonHover} ${accentButtonText} font-bold px-6 py-2 rounded-xl shadow transition-all duration-200 border border-white/10 tracking-wide`}
+            disabled={isPending}
           >
             {isPending ? "Posting..." : "Post Comment"}
           </button>
           {isError && (
-            <p className="text-red-500 mt-2">Error posting comment.</p>
+            <p className="text-center text-red-400 font-medium mt-2">
+              Error posting comment.
+            </p>
           )}
         </form>
       ) : (
-        <p className="mb-4 text-gray-600">
+        <p className="mb-6 text-gray-400 text-center">
           You must be logged in to post a comment.
         </p>
       )}

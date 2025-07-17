@@ -32,11 +32,25 @@ export const CommunityDisplay = ({ communityId }: Props) => {
     queryFn: () => fetchCommunityPost(communityId),
   });
 
+  // Accent color for text (primary shade for black bg)
+  const accentText = "text-orange-400";
+  const accentBorder = "border-orange-400";
+  const accentBgGradient =
+    "bg-gradient-to-r from-black via-gray-900 to-gray-800";
+  const accentCardGradient =
+    "bg-gradient-to-br from-black via-gray-900 to-gray-800";
+  const accentCardHover =
+    "hover:from-gray-900 hover:to-black hover:shadow-xl hover:border-orange-400/40";
+
   if (isLoading)
-    return <div className="text-center py-4">Loading community posts...</div>;
+    return (
+      <div className="text-center py-8 text-lg text-gray-200">
+        Loading community posts...
+      </div>
+    );
   if (error)
     return (
-      <div className="text-center text-red-500 py-4">
+      <div className="text-center text-red-400 py-8 text-lg">
         Error: {error.message}
       </div>
     );
@@ -47,19 +61,28 @@ export const CommunityDisplay = ({ communityId }: Props) => {
       : "Community";
 
   return (
-    <div>
-      <h2 className="text-6xl font-bold mb-6 text-center bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+    <div
+      className={`min-h-[80vh] py-12 px-2 ${accentBgGradient} rounded-3xl shadow-2xl border border-gray-700/60`}
+    >
+      <h2
+        className={`text-5xl font-extrabold mb-10 text-center bg-gradient-to-r from-white via-gray-200 to-gray-500 bg-clip-text text-transparent drop-shadow-lg tracking-tight`}
+      >
         {communityName} Community Posts
       </h2>
 
       {data && data.length > 0 ? (
-        <div className="flex flex-wrap gap-6 justify-center">
+        <div className="max-w-5xl mx-auto flex flex-wrap gap-6 justify-center">
           {data.map((post) => (
-            <PostItem key={post.id} post={post} />
+            <div
+              key={post.id}
+              className={`border border-white/10 ${accentCardGradient} p-6 rounded-2xl shadow-lg transition-all duration-200 transform hover:-translate-y-1 ${accentCardHover} w-full md:w-[45%]`}
+            >
+              <PostItem post={post} />
+            </div>
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-400">
+        <p className="text-center text-gray-400 text-lg mt-8">
           No posts in this community yet.
         </p>
       )}

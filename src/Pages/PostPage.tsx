@@ -4,12 +4,12 @@ import { useParams } from "react-router";
 export const PostPage = () => {
   const { id } = useParams<{ id: string }>();
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#1a1333] via-[#2d1e4f] to-[#0f051d] py-20 px-4">
-      <div className="w-full max-w-3xl bg-gradient-to-tr from-white/10 via-white/5 to-white/0 rounded-3xl shadow-[0_8px_40px_0_rgba(80,0,120,0.25)] p-10 border border-white/10 backdrop-blur-lg ring-1 ring-purple-700/10">
+    <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-gray-800 py-12 px-2 sm:py-20 sm:px-4">
+      <section className="w-full max-w-3xl bg-gradient-to-tr from-white/10 via-gray-200/10 to-gray-900/20 rounded-3xl shadow-2xl p-6 sm:p-10 md:p-12 border border-gray-700/30 backdrop-blur-md ring-1 ring-gray-900/10">
         <div className="animate-fade-in">
           <PostDetail postId={Number(id)} />
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 };
