@@ -92,9 +92,7 @@ export const Create = () => {
         onSubmit={handleSubmit}
         className="w-full max-w-2xl bg-[rgb(24,27,32)] border border-[rgb(84,90,106)] rounded-2xl shadow-2xl p-8 space-y-7"
       >
-        <h2 className="text-4xl font-extrabold text-center mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-lg">
-          Create a New Post
-        </h2>
+        
         <div>
           <label htmlFor="title" className="block mb-2 font-semibold text-gray-200">
             Title
