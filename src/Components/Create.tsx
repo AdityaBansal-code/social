@@ -40,6 +40,7 @@ export const Create = () => {
   const [content, setContent] = useState<string>("");
   const [communityId, setCommunityId] = useState<number | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [authError, setAuthError] = useState<string | null>(null);
 
   const { user } = useAuthStore();
 
@@ -56,6 +57,12 @@ export const Create = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    setAuthError(null);
+
+    if (!user) {
+      setAuthError("You must sign in first to create a post.");
+      return;
+    }
     if (!selectedFile) return;
     mutate(
       {
@@ -205,6 +212,11 @@ export const Create = () => {
             "Create Post"
           )}
         </button>
+        {authError && (
+          <p className="text-red-500 text-center font-semibold mt-2">
+            {authError}
+          </p>
+        )}
         {isError && (
           <p className="text-red-500 text-center font-semibold mt-2">
             Error creating post.

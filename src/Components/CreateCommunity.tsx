@@ -1,7 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import  supabase  from "../utils/supabase";
+import supabase from "../utils/supabase";
+import { useAuthStore } from "../Store/AuthStore";
 
 interface CommunityInput {
   name: string;
@@ -17,8 +18,10 @@ const createCommunity = async (community: CommunityInput) => {
 export const CreateCommunity = () => {
   const [name, setName] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [authError, setAuthError] = useState<string | null>(null);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { user } = useAuthStore();
 
   const { mutate, isPending, isError } = useMutation({
     mutationFn: createCommunity,
@@ -30,6 +33,11 @@ export const CreateCommunity = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setAuthError(null);
+    if (!user) {
+      setAuthError("You must be signed in to create a community.");
+      return;
+    }
     mutate({ name, description });
   };
   return (
@@ -65,9 +73,11 @@ export const CreateCommunity = () => {
       <button
         type="submit"
         className="bg-purple-500 text-white px-4 py-2 rounded cursor-pointer"
+        disabled={isPending}
       >
         {isPending ? "Creating..." : "Create Community"}
       </button>
+      {authError && <p className="text-red-500">{authError}</p>}
       {isError && <p className="text-red-500">Error creating community.</p>}
     </form>
   );
