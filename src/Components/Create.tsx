@@ -93,25 +93,26 @@ export const Create = () => {
     }
   };
 
-  // Accent color for text (primary shade for black bg)
-  const accentText = "text-orange-400";
-  const accentBorder = "border-orange-400";
-  const accentBgGradient = "bg-gradient-to-r from-black via-gray-900 to-gray-800";
+  // Aesthetic, modern, black/white/grey theme with gradients and white as primary text
+  const accentText = "text-white";
+  const accentBorder = "border-gray-200";
+  const accentBgGradient = "bg-gradient-to-br from-black via-gray-900 to-gray-800";
   const accentInputBorder = "border-gray-700";
-  const accentInputFocus = "focus:ring-2 focus:ring-orange-400";
-  const accentButtonGradient = "bg-gradient-to-r from-black via-gray-800 to-gray-900";
-  const accentButtonHover = "hover:from-gray-900 hover:to-black";
-  const accentButtonText = "text-orange-300";
-  const accentFile = "file:bg-gradient-to-r file:from-gray-800 file:to-black file:text-orange-300 hover:file:from-black hover:file:to-gray-800";
+  const accentInputFocus = "focus:ring-2 focus:ring-white";
+  const accentButtonGradient = "bg-gradient-to-r from-gray-900 via-gray-800 to-black";
+  const accentButtonHover = "hover:from-black hover:to-gray-900";
+  const accentButtonText = "text-white";
+  const accentFile =
+    "file:bg-gradient-to-r file:from-gray-800 file:to-black file:text-white hover:file:from-black hover:file:to-gray-800";
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center bg-gradient-to-br from-black via-gray-900 to-gray-800 py-12 px-2">
       <form
         onSubmit={handleSubmit}
-        className={`w-full max-w-2xl ${accentBgGradient} border ${accentBorder}/30 rounded-2xl shadow-2xl p-8 space-y-7 overflow-y-auto max-h-[80vh] custom-scrollbar`}
+        className={`w-full max-w-2xl ${accentBgGradient} border ${accentBorder}/20 rounded-2xl shadow-2xl p-8 space-y-7 overflow-y-auto max-h-[80vh] custom-scrollbar`}
         style={{
           scrollbarWidth: "thin",
-          scrollbarColor: "#fbbf24 #181b20",
+          scrollbarColor: "#fff #181b20",
         }}
       >
         <style>
@@ -122,15 +123,15 @@ export const Create = () => {
               border-radius: 8px;
             }
             .custom-scrollbar::-webkit-scrollbar-thumb {
-              background: linear-gradient(180deg, #fbbf24 0%, #f59e42 100%);
+              background: linear-gradient(180deg, #fff 0%, #bbb 100%);
               border-radius: 8px;
             }
             .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-              background: linear-gradient(180deg, #f59e42 0%, #fbbf24 100%);
+              background: linear-gradient(180deg, #bbb 0%, #fff 100%);
             }
           `}
         </style>
-        <h2 className="text-4xl font-extrabold mb-4 text-center bg-gradient-to-r from-orange-400 via-yellow-300 to-white bg-clip-text text-transparent drop-shadow-lg tracking-tight">
+        <h2 className="text-4xl font-extrabold mb-4 text-center bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent drop-shadow-lg tracking-tight">
           Create a Post
         </h2>
         <div>
@@ -142,7 +143,7 @@ export const Create = () => {
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className={`w-full border ${accentInputBorder} bg-black p-3 rounded-lg text-white focus:outline-none ${accentInputFocus} transition`}
+            className={`w-full border ${accentInputBorder} bg-black p-3 rounded-lg text-white focus:outline-none ${accentInputFocus} transition placeholder-gray-400`}
             placeholder="Enter your post title"
             required
           />
@@ -155,7 +156,7 @@ export const Create = () => {
             id="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className={`w-full border ${accentInputBorder} bg-black p-3 rounded-lg text-white focus:outline-none ${accentInputFocus} transition`}
+            className={`w-full border ${accentInputBorder} bg-black p-3 rounded-lg text-white focus:outline-none ${accentInputFocus} transition placeholder-gray-400`}
             rows={6}
             placeholder="Write your post content here..."
             required
@@ -193,18 +194,18 @@ export const Create = () => {
           {selectedFile && (
             <div className="mt-2 flex items-center gap-2">
               <span className="text-sm text-gray-400">Selected:</span>
-              <span className="text-sm text-orange-300">{selectedFile.name}</span>
+              <span className="text-sm text-white">{selectedFile.name}</span>
             </div>
           )}
         </div>
         <button
           type="submit"
-          className={`w-full ${accentButtonGradient} ${accentButtonHover} ${accentButtonText} px-6 py-3 rounded-lg font-bold text-lg shadow-lg transition-all duration-200 border border-orange-400/40`}
+          className={`w-full ${accentButtonGradient} ${accentButtonHover} ${accentButtonText} px-6 py-3 rounded-lg font-bold text-lg shadow-lg transition-all duration-200 border border-white/20`}
           disabled={isPending}
         >
           {isPending ? (
             <span className="flex items-center justify-center gap-2">
-              <svg className="animate-spin h-5 w-5 text-orange-300" viewBox="0 0 24 24">
+              <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
                 <circle
                   className="opacity-25"
                   cx="12"
