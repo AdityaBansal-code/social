@@ -1,19 +1,3 @@
-<p align="center">
-  <img src="./public/logo.png" alt="Threadly Logo" width="120" height="120"/>
-</p>
-
-<h1 align="center">Threadly – Social Community Platform</h1>
-
-<p align="center">
-  <b>A modern, full-stack social platform for building and engaging in communities.</b>
-</p>
-
-<p align="center">
-  <a href="#"><img src="https://img.shields.io/badge/build-passing-brightgreen" alt="Build Status"></a>
-  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License"></a>
-  <a href="#tech-stack"><img src="https://img.shields.io/badge/stack-React%20%7C%20TypeScript%20%7C%20Supabase%20%7C%20Tailwind-blueviolet" alt="Tech Stack"></a>
-</p>
-
 ---
 
 ## Overview
