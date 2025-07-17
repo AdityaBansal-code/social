@@ -26,8 +26,7 @@ export const CommunityList = () => {
   });
 
   // Accent and style variables for a modern, aesthetic, dark theme
-  const accentText = "text-orange-400"; // primary accent for black bg
-  const accentBorder = "border-orange-400";
+  
   const accentBgGradient =
     "bg-gradient-to-br from-black via-gray-900 to-gray-800";
   const accentCardGradient =
@@ -47,8 +46,7 @@ export const CommunityList = () => {
     "bg-gradient-to-r from-orange-400 via-yellow-300 to-white bg-clip-text text-transparent";
   const cardDesc = "text-gray-300 mt-2 text-lg";
   const cardMeta = "mt-4 flex items-center text-xs text-gray-400 gap-2";
-  const pageTitle =
-    "text-5xl font-extrabold mb-12 text-center bg-gradient-to-r from-white via-gray-200 to-orange-400 bg-clip-text text-transparent drop-shadow-2xl tracking-tight";
+
   const container =
     "min-h-[80vh] py-16 px-4 " + accentBgGradient + " flex flex-col items-center";
   const listWrapper = "max-w-4xl w-full mx-auto flex flex-col gap-8";

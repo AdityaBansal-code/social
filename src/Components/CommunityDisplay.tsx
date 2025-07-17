@@ -33,8 +33,7 @@ export const CommunityDisplay = ({ communityId }: Props) => {
   });
 
   // Accent color for text (primary shade for black bg)
-  const accentText = "text-orange-400";
-  const accentBorder = "border-orange-400";
+ 
   const accentBgGradient =
     "bg-gradient-to-r from-black via-gray-900 to-gray-800";
   const accentCardGradient =

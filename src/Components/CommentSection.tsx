@@ -90,7 +90,7 @@ export const CommentSection = ({ postId }: Props) => {
     setNewCommentText("");
   };
 
-  /* Map of Comments - Organize Replies - Return Tree  */
+  // Build comment tree for nested replies
   const buildCommentTree = (
     flatComments: Comment[]
   ): (Comment & { children?: Comment[] })[] => {
@@ -115,18 +115,19 @@ export const CommentSection = ({ postId }: Props) => {
     return roots;
   };
 
-  // Accent color and gradients for black background
-  const accentText = "text-orange-400";
-  const accentBorder = "border-orange-400";
+  // Color and style variables for a modern, black/white/gray aesthetic
+  const accentText = "text-white";
+  const accentBorder = "border-gray-700";
   const accentBgGradient =
     "bg-gradient-to-br from-black via-gray-900 to-gray-800";
   const accentButtonGradient =
-    "bg-gradient-to-r from-black via-gray-800 to-gray-900";
+    "bg-gradient-to-r from-gray-900 via-gray-800 to-black";
   const accentButtonHover =
-    "hover:from-gray-900 hover:to-black";
-  const accentButtonText = "text-orange-300";
+    "hover:from-gray-800 hover:to-gray-900";
+  const accentButtonText = "text-white";
   const accentInputBorder = "border-gray-700";
-  const accentInputFocus = "focus:ring-2 focus:ring-orange-400";
+  const accentInputFocus = "focus:ring-2 focus:ring-white";
+  const accentPlaceholder = "placeholder-gray-400";
 
   if (isLoading) {
     return (
@@ -148,10 +149,10 @@ export const CommentSection = ({ postId }: Props) => {
 
   return (
     <div
-      className={`mt-6 rounded-2xl shadow-lg border border-gray-700/60 ${accentBgGradient} p-6`}
+      className={`mt-6 rounded-2xl shadow-lg border ${accentBorder} ${accentBgGradient} p-6`}
     >
       <h3
-        className={`text-2xl font-extrabold mb-6 bg-gradient-to-r from-white via-gray-200 to-orange-400 bg-clip-text text-transparent drop-shadow tracking-tight`}
+        className="text-2xl font-extrabold mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent drop-shadow tracking-tight"
       >
         Comments
       </h3>
@@ -161,7 +162,7 @@ export const CommentSection = ({ postId }: Props) => {
           <textarea
             value={newCommentText}
             onChange={(e) => setNewCommentText(e.target.value)}
-            className={`w-full border ${accentInputBorder} bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 text-white p-3 rounded-lg focus:outline-none ${accentInputFocus} transition`}
+            className={`w-full border ${accentInputBorder} bg-gradient-to-r from-black via-gray-900 to-gray-800 ${accentText} ${accentPlaceholder} p-3 rounded-lg focus:outline-none ${accentInputFocus} transition`}
             placeholder="Write a comment..."
             rows={3}
           />
