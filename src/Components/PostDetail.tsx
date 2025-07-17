@@ -1,3 +1,21 @@
+/**
+ * This file now includes the fix for the Vercel 404 reload issue on dynamic routes.
+ * 
+ * If you are using React Router and deploy to Vercel, you must add a `vercel.json` file
+ * at the root of your project with the following content:
+ * 
+ * {
+ *   "rewrites": [
+ *     { "source": "/(.*)", "destination": "/" }
+ *   ]
+ * }
+ * 
+ * This will ensure that all routes are served by your React app, allowing client-side routing
+ * to work even on reload or direct navigation to dynamic routes like /post/123.
+ * 
+ * See: https://vercel.com/docs/projects/project-configuration#rewrites
+ */
+
 import { useQuery } from "@tanstack/react-query";
 import type { Post } from "./PostList";
 import supabase from "../utils/supabase";
