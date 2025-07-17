@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import type { Post } from "./PostList";
-import  supabase  from "../utils/supabase";
+import supabase from "../utils/supabase";
 import { PostItem } from "./PostItem";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 interface PostWithCommunity extends Post {
   communities: {
     name: string;
-  };
+  } | null;
 }
 
 export const fetchCommunityPost = async (
@@ -23,7 +23,7 @@ export const fetchCommunityPost = async (
     .order("created_at", { ascending: false });
 
   if (error) throw new Error(error.message);
-  return data as PostWithCommunity[];
+  return (data ?? []) as PostWithCommunity[];
 };
 
 export const CommunityDisplay = ({ communityId }: Props) => {
@@ -33,17 +33,23 @@ export const CommunityDisplay = ({ communityId }: Props) => {
   });
 
   if (isLoading)
-    return <div className="text-center py-4">Loading communities...</div>;
+    return <div className="text-center py-4">Loading community posts...</div>;
   if (error)
     return (
       <div className="text-center text-red-500 py-4">
         Error: {error.message}
       </div>
     );
+
+  const communityName =
+    data && data.length > 0 && data[0].communities
+      ? data[0].communities.name
+      : "Community";
+
   return (
     <div>
       <h2 className="text-6xl font-bold mb-6 text-center bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
-        {data && data[0].communities.name} Community Posts
+        {communityName} Community Posts
       </h2>
 
       {data && data.length > 0 ? (

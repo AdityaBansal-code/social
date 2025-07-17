@@ -6,6 +6,7 @@ import { CreatePostPage } from './Pages/CreatePostPage'
 import { PostPage } from './Pages/PostPage'
 import { CreateCommunityPage } from './Pages/CreateCommunityPage'
 import { CommunitiesPage } from './Pages/CommunitiesPage'
+import { CommunityPage } from './Pages/CommunityPage'
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
           <Route path="/post/:id" element={<PostPage />} />
           <Route path="/community/create" element={<CreateCommunityPage />} />
           <Route path="/communities" element={<CommunitiesPage />} />
-          <Route path="/community/:id" element={<CreateCommunityPage />} />
+          <Route path="/community/:id" element={<CommunityPage/>} />
         </Routes>
       </div>
     </div>
