@@ -60,7 +60,7 @@ export const Create = () => {
     setAuthError(null);
 
     if (!user) {
-      setAuthError("You must sign in first to create a post.");
+      setAuthError("Sign in before creating a post");
       return;
     }
     if (!selectedFile) return;

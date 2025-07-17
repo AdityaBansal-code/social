@@ -35,7 +35,7 @@ export const CreateCommunity = () => {
     e.preventDefault();
     setAuthError(null);
     if (!user) {
-      setAuthError("You must be signed in to create a community.");
+      setAuthError("Sign in before to create community");
       return;
     }
     mutate({ name, description });
