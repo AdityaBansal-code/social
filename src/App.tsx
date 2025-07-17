@@ -7,11 +7,9 @@ import { PostPage } from './Pages/PostPage'
 import { CreateCommunityPage } from './Pages/CreateCommunityPage'
 import { CommunitiesPage } from './Pages/CommunitiesPage'
 import { CommunityPage } from './Pages/CommunityPage'
-
+import { Analytics } from '@vercel/analytics/react'
 
 function App() {
-
-
   return (
     <div className="min-h-screen bg-black text-gray-100 transition-opacity duration-700 pt-20">
       <Navbar />
@@ -25,6 +23,7 @@ function App() {
           <Route path="/community/:id" element={<CommunityPage/>} />
         </Routes>
       </div>
+      <Analytics />
     </div>
   );
 }
